@@ -32,4 +32,16 @@ public class BoardInfoService {
 
     }
 
+    public int getTotal(Search search){
+
+        if(search.getCate().equals("title")){
+            return boardDataRepository.totalElementTitle(search);
+        } else if (search.getCate().equals("content")) {
+            return boardDataRepository.totalElementContent(search);
+        } else{
+            return boardDataRepository.totalElementId(search);
+        }
+
+    }
+
 }

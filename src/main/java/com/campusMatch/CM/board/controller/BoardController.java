@@ -6,6 +6,7 @@ import com.campusMatch.CM.board.service.BoardInfoService;
 import com.campusMatch.CM.board.service.BoardSaveService;
 import com.campusMatch.CM.page.Search;
 import com.campusMatch.CM.user.entity.Member;
+import com.campusMatch.CM.util.Page;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +36,9 @@ public class BoardController {
 
         Pageable pageable = PageRequest.of(search.getPage(), 5, Sort.by("createdAt").ascending());
 
+        Page page = new Page(search.getPage(), boardInfoService.getTotal(search), search);
+
+        model.addAttribute("page" , page);
         search.setTotalPage(pageable.getPageSize());
 
         model.addAttribute("search" , search);

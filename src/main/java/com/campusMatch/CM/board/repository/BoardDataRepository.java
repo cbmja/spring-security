@@ -43,4 +43,13 @@ public interface BoardDataRepository extends JpaRepository<BoardData, Integer> {
      */
     @Query("SELECT d FROM BoardData d WHERE d.type = :#{#search.type} AND d.userId LIKE %:#{#search.search}%")
     Page<BoardData> findByUserIdCriteria(@Param("search")Search search, Pageable pageable);
+
+
+
+    @Query("SELECT count(*) FROM BoardData d WHERE d.type = :#{#search.type} AND d.title LIKE %:#{#search.search}%")
+    int totalElementTitle(@Param("search")Search search);
+    @Query("SELECT count(*) FROM BoardData d WHERE d.type = :#{#search.type} AND d.content LIKE %:#{#search.search}%")
+    int totalElementContent(@Param("search")Search search);
+    @Query("SELECT count(*) FROM BoardData d WHERE d.type = :#{#search.type} AND d.userId LIKE %:#{#search.search}%")
+    int totalElementId(@Param("search")Search search);
 }

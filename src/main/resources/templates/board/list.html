@@ -60,11 +60,16 @@
                 <a class="page-link" th:href="@{/board(page=${search.page-1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}"><</a>
             </li>
 
+                <div th:each="pageNum : ${page.elements}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/board(page=${pageNum}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" th:text="${pageNum}"></a>
+                    </li>
+                </div>
 
-            <li class="page-item"><a class="page-link" th:href="@{/board(page=3, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">1</a></li>
+           <!-- <li class="page-item"><a class="page-link" th:href="@{/board(page=3, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">1</a></li>
             <li class="page-item"><a class="page-link" th:href="@{/board(page=4, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">2</a></li>
             <li class="page-item"><a class="page-link" th:href="@{/board(page=5, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">3</a></li>
-
+-->
 
             <li class="page-item">
                 <a class="page-link" th:href="@{/board(page=${search.page+1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">></a>
