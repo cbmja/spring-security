@@ -11,20 +11,20 @@
             <form class="d-flex" role="search" method="get" th:action="@{/board}">
 
                 <div class="container-fluid">
-                    <select class="form-select" aria-label="Default select example" name="sort">
+                    <select class="form-select" aria-label="Default select example" name="sort" th:field="${search.sort}">
                         <option value="DESC">최신순</option>
                         <option value="ASC">오래된순</option>
                     </select>
                 </div>
                 <div class="container-fluid">
-                    <select class="form-select" aria-label="Default select example" name="cate">
+                    <select class="form-select" aria-label="Default select example" name="cate" th:field="${search.cate}">
                         <option value="title">제목</option>
                         <option value="content">내용</option>
                         <option value="userId">글쓴이</option>
                     </select>
                 </div>
 
-                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="search">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="search" th:field="${search.search}">
                 <button class="btn btn-outline-success" type="submit">Search</button>
                 <input type="hidden" th:value="${search.type}" name="type">
             </form>
@@ -56,7 +56,9 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item"><a class="page-link" th:href="@{/board(page=${search.startPage-1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}"><</a></li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/board(page=${search.page-1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}"><</a>
+            </li>
 
 
             <li class="page-item"><a class="page-link" th:href="@{/board(page=3, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">1</a></li>
@@ -64,9 +66,11 @@
             <li class="page-item"><a class="page-link" th:href="@{/board(page=5, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">3</a></li>
 
 
-            <li class="page-item"><a class="page-link" th:href="@{/board(page=${search.startPage+1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">></a></li>
             <li class="page-item">
-                <a class="page-link" th:href="@{/board(page=${search.startPage}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" aria-label="Next">
+                <a class="page-link" th:href="@{/board(page=${search.page+1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/board(page=${search.totalPage}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

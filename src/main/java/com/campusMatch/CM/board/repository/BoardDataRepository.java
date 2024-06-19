@@ -23,8 +23,8 @@ public interface BoardDataRepository extends JpaRepository<BoardData, Integer> {
      * @param pageable
      * @return
      */
-    @Query("SELECT d FROM BoardData d WHERE d.type LIKE %:#{#search.type}% AND d.title LIKE %:#{#search.search}%")
-    Page<BoardData> findByTitleCriteria(@Param("search") Search search, Pageable pageable);
+    @Query("SELECT d FROM BoardData d WHERE d.type = :#{#search.type} AND d.title LIKE %:#{#search.search}%")
+    Page<BoardData> findByTitleCriteria(@Param("search")Search search, Pageable pageable);
 
     /**
      * 내용검색
@@ -32,8 +32,8 @@ public interface BoardDataRepository extends JpaRepository<BoardData, Integer> {
      * @param pageable
      * @return
      */
-    @Query("SELECT d FROM BoardData d WHERE d.type LIKE %:#{#search.type}% AND d.content LIKE %:#{#search.search}%")
-    Page<BoardData> findByContentCriteria(@Param("search") Search search, Pageable pageable);
+    @Query("SELECT d FROM BoardData d WHERE d.type = :#{#search.type} AND d.content LIKE %:#{#search.search}%")
+    Page<BoardData> findByContentCriteria(@Param("search")Search search, Pageable pageable);
 
     /**
      * 글쓴이 검색
@@ -41,6 +41,6 @@ public interface BoardDataRepository extends JpaRepository<BoardData, Integer> {
      * @param pageable
      * @return
      */
-    @Query("SELECT d FROM BoardData d WHERE d.type LIKE %:#{#search.type}% AND d.userId LIKE %:#{#search.search}%")
-    Page<BoardData> findByUserIdCriteria(@Param("search") Search search, Pageable pageable);
+    @Query("SELECT d FROM BoardData d WHERE d.type = :#{#search.type} AND d.userId LIKE %:#{#search.search}%")
+    Page<BoardData> findByUserIdCriteria(@Param("search")Search search, Pageable pageable);
 }

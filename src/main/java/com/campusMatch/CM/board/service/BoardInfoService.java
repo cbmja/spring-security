@@ -21,6 +21,7 @@ public class BoardInfoService {
     }
 
     public Page<BoardData> getPageList(Search search, Pageable pageable) {
+
         if(search.getCate().equals("title")){
             return boardDataRepository.findByTitleCriteria(search, pageable);
         } else if (search.getCate().equals("content")) {

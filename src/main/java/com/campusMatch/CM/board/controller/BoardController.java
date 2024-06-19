@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 //@RequestMapping("/board")
 @RequiredArgsConstructor
@@ -30,12 +32,19 @@ public class BoardController {
     //게시판 목록
     @GetMapping("/board")
     public String list(Model model, @ModelAttribute Search search){
-        model.addAttribute("search" , search);
-
 
         Pageable pageable = PageRequest.of(search.getPage(), 5, Sort.by("createdAt").ascending());
 
-        model.addAttribute("list" , boardInfoService.getPageList(search,pageable));
+        search.setTotalPage(pageable.getPageSize());
+
+        model.addAttribute("search" , search);
+
+
+
+        List<BoardData> bList = boardInfoService.getPageList(search,pageable).getContent();
+
+
+        model.addAttribute("list" , boardInfoService.getPageList(search,pageable).getContent());
 
         return "board/list";
     }
