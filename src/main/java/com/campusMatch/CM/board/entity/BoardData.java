@@ -11,10 +11,10 @@ import lombok.Data;
 public class BoardData extends Base {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boardDataNum;//번호
     @Column
-    private String memberId;//글쓴이
+    private String userId;//글쓴이
     @Column
     private String title;//제목
     @Lob
@@ -23,8 +23,8 @@ public class BoardData extends Base {
     @Column
     private String type;//notice 공지 , free 자유 , Question 질문
     @Column
-    private int likes;//추천수
+    private int likes=0;//추천수
     @Column
-    private int views;//조회수
+    private int views=0;//조회수
 
 }

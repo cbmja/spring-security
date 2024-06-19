@@ -3,55 +3,75 @@
       layout:decorate="~{layout/layout}">
 
 <div layout:fragment="content">
-    <h1>ㅇㅇ게시판</h1>
-    <hr>
 
+
+    <nav class="navbar bg-body-tertiary" style="margin-top: 3%; margin-bottom: 1%;">
+        <div class="container-fluid">
+            <a class="navbar-brand">[[${search.type}]]게시판</a>
+            <form class="d-flex" role="search" method="get" th:action="@{/board}">
+
+                <div class="container-fluid">
+                    <select class="form-select" aria-label="Default select example" name="sort">
+                        <option value="DESC">최신순</option>
+                        <option value="ASC">오래된순</option>
+                    </select>
+                </div>
+                <div class="container-fluid">
+                    <select class="form-select" aria-label="Default select example" name="cate">
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                </div>
+
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input type="hidden" th:value="${search.type}" name="type">
+            </form>
+        </div>
+    </nav>
     <table class="table table-hover">
         <tr>
             <th>제목</th>
             <th>내용</th>
             <th>작성일</th>
+            <th>작성자</th>
             <th>추천수</th>
             <th>조회수</th>
         </tr>
-        <tr>
-            <td>제목ddd</td>
-            <td>내용ddd</td>
-            <td>작성일ddd</td>
-            <td>추천수ddd</td>
-            <td>조회수ddd</td>
-        </tr>
-        <tr>
-            <td>제목ddd</td>
-            <td>내용ddd</td>
-            <td>작성일ddd</td>
-            <td>추천수ddd</td>
-            <td>조회수ddd</td>
+        <tr th:each="boardData : ${list}" th:object="${boardData}">
+            <td th:text="*{title}"></td>
+            <td th:text="*{content}"></td>
+            <td th:text="*{createdAt}"></td>
+            <td th:text="*{userId}"></td>
+            <td th:text="*{likes}"></td>
+            <td th:text="*{views}"></td>
         </tr>
     </table>
 
     <div class="col-md-6" aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                <a class="page-link" href="/masters?page=1&search=${p.getSearch()}&cate=${p.getCate()}&sort=${p.getSort()}&sortCate=${p.getSortCate()}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span> <!--제일 앞으로-->
                 </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#"><</a></li>
+            <li class="page-item"><a class="page-link" href="#"><</a></li><!--이전 페이지-->
+
             <li class="page-item"><a class="page-link" href="#">1</a></li>
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
+
             <li class="page-item"><a class="page-link" href="#">></a></li>
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                <a class="page-link" href="#" aria-label="Next"><!--다음 페이지-->
+                    <span aria-hidden="true">&raquo;</span><!--제일 뒤로-->
                 </a>
             </li>
         </ul>
     </nav>
 
     <div class="col-md-6">
-        <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${boardData.type})}">글쓰기</a>
+        <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${search.type})}">글쓰기</a>
     </div>
 
 </div>

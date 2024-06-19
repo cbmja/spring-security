@@ -10,7 +10,7 @@ import lombok.Data;
 @Table(indexes=@Index(name="uq_member_authority", columnList = "member_seq, authority", unique = true))
 public class Authorities {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
     @JsonIgnore

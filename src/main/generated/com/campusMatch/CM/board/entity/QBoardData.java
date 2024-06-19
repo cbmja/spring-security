@@ -30,14 +30,14 @@ public class QBoardData extends EntityPathBase<BoardData> {
 
     public final NumberPath<Integer> likes = createNumber("likes", Integer.class);
 
-    public final StringPath memberId = createString("memberId");
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
     public final StringPath title = createString("title");
 
     public final StringPath type = createString("type");
+
+    public final StringPath userId = createString("userId");
 
     public final NumberPath<Integer> views = createNumber("views", Integer.class);
 

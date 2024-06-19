@@ -11,7 +11,7 @@ import lombok.Data;
 public class Comment extends Base {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentNum;//번호
     @Column
     private int boardDataNum;//게시글 번호

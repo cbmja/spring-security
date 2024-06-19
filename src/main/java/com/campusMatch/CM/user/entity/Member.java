@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @Entity
 public class Member extends Base {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq; //번호
 
     @Column(length=80, nullable = false, unique = true)
@@ -41,10 +41,10 @@ public class Member extends Base {
     private Date birthDate; //생년월일
 
     @Column(nullable=false)
-    private int applyCnt; //신청 횟수
+    private int applyCnt=0; //신청 횟수
 
     @Column(nullable=false)
-    private int matchCnt; //매칭 횟수
+    private int matchCnt=0; //매칭 횟수
 
     @Transient
     private String agree; //회원가입 동의

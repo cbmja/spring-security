@@ -1,5 +1,7 @@
 package com.campusMatch.CM;
 
+import com.campusMatch.CM.board.entity.BoardData;
+import com.campusMatch.CM.board.service.BoardSaveService;
 import com.campusMatch.CM.user.entity.Member;
 import com.campusMatch.CM.user.service.JoinService;
 import org.junit.jupiter.api.Test;
@@ -16,24 +18,23 @@ class CmApplicationTests {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
+	@Autowired
+	private BoardSaveService boardSaveService;
+
 	@Test
 	void contextLoads() {
 
-		Member member1 = new Member();
-		member1.setEmail("user@naber.com");
-		member1.setPassword("1234");
-		member1.setUserId("user");
 
-		Member member2 = new Member();
-		member2.setEmail("admin@naber.com");
-		member2.setPassword("1234");
-		member2.setUserId("admin");
 
-		joinService.process(member1);
-		joinService.process(member2);
-		String check =
-		passwordEncoder.matches("1234" , "$2a$10$Rm7t2a3UP0a4cLPBQiVOIuiYDn5vZ3E.9Du7WsZvGOSNIZGfC3Zp2")
-				? "t" : "f";
+		for(int i=0; i<100; i++){
+			BoardData b = new BoardData();
+			b.setType("question");
+			b.setContent(i+"/");
+			b.setTitle(i+"");
+
+			boardSaveService.save(b);
+		}
+
 
 	}
 
