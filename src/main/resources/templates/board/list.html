@@ -20,6 +20,7 @@
                     <select class="form-select" aria-label="Default select example" name="cate">
                         <option value="title">제목</option>
                         <option value="content">내용</option>
+                        <option value="userId">글쓴이</option>
                     </select>
                 </div>
 
@@ -51,30 +52,33 @@
     <div class="col-md-6" aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item">
-                <a class="page-link" href="/masters?page=1&search=${p.getSearch()}&cate=${p.getCate()}&sort=${p.getSort()}&sortCate=${p.getSortCate()}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span> <!--제일 앞으로-->
+                <a class="page-link" th:href="@{/board(page=${search.startPage}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#"><</a></li><!--이전 페이지-->
+            <li class="page-item"><a class="page-link" th:href="@{/board(page=${search.startPage-1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}"><</a></li>
 
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
 
-            <li class="page-item"><a class="page-link" href="#">></a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/board(page=3, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">1</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/board(page=4, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">2</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/board(page=5, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">3</a></li>
+
+
+            <li class="page-item"><a class="page-link" th:href="@{/board(page=${search.startPage+1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">></a></li>
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next"><!--다음 페이지-->
-                    <span aria-hidden="true">&raquo;</span><!--제일 뒤로-->
+                <a class="page-link" th:href="@{/board(page=${search.startPage}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
-    </nav>
 
-    <div class="col-md-6">
-        <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${search.type})}">글쓰기</a>
+        <div class="col-md-6">
+            <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${search.type})}">글쓰기</a>
+        </div>
+
     </div>
-
-</div>
 </div>
 
 </html>
+
+

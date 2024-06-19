@@ -8,12 +8,15 @@ import com.campusMatch.CM.page.Search;
 import com.campusMatch.CM.user.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/board")
+//@RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardController {
 
@@ -25,11 +28,14 @@ public class BoardController {
 
     /*@RequestParam(name="type" , defaultValue = "notice") String type*/
     //게시판 목록
-    @GetMapping()
+    @GetMapping("/board")
     public String list(Model model, @ModelAttribute Search search){
         model.addAttribute("search" , search);
-        model.addAttribute("list" , boardInfoService.getAll());
 
+
+        Pageable pageable = PageRequest.of(search.getPage(), 5, Sort.by("createdAt").ascending());
+
+        model.addAttribute("list" , boardInfoService.getPageList(search,pageable));
 
         return "board/list";
     }
@@ -37,7 +43,7 @@ public class BoardController {
 
 
     //게시판 글 작성 폼
-    @GetMapping("/form")
+    @GetMapping("/board/form")
     public String form( Model model, @ModelAttribute BoardData boardData){
 
         model.addAttribute("boardData" , boardData);
@@ -47,7 +53,7 @@ public class BoardController {
     }
 
     //작성 처리
-    @PostMapping
+    @PostMapping("/board")
     public String formProc(Model model, @ModelAttribute BoardData boardData){
 
         boardSaveService.save(boardData);
