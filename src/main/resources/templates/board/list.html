@@ -1,0 +1,60 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+    <h1>ㅇㅇ게시판</h1>
+    <hr>
+
+    <table class="table table-hover">
+        <tr>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성일</th>
+            <th>추천수</th>
+            <th>조회수</th>
+        </tr>
+        <tr>
+            <td>제목ddd</td>
+            <td>내용ddd</td>
+            <td>작성일ddd</td>
+            <td>추천수ddd</td>
+            <td>조회수ddd</td>
+        </tr>
+        <tr>
+            <td>제목ddd</td>
+            <td>내용ddd</td>
+            <td>작성일ddd</td>
+            <td>추천수ddd</td>
+            <td>조회수ddd</td>
+        </tr>
+    </table>
+
+    <div class="col-md-6" aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#"><</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">></a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="col-md-6">
+        <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${boardData.type})}">글쓰기</a>
+    </div>
+
+</div>
+</div>
+
+</html>

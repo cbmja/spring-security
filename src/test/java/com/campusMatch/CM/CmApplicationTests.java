@@ -20,13 +20,11 @@ class CmApplicationTests {
 	void contextLoads() {
 
 		Member member1 = new Member();
-		member1.setName("user");
 		member1.setEmail("user@naber.com");
 		member1.setPassword("1234");
 		member1.setUserId("user");
 
 		Member member2 = new Member();
-		member2.setName("admin");
 		member2.setEmail("admin@naber.com");
 		member2.setPassword("1234");
 		member2.setUserId("admin");

@@ -43,7 +43,7 @@ public class SecurityConfig {
 
         http.logout(c -> {
             c.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                    .logoutSuccessUrl("/member/login");
+                    .logoutSuccessUrl("/");
         });
         /* 인증 설정 E - 로그인, 로그아웃 */
 
@@ -54,13 +54,15 @@ public class SecurityConfig {
         // ROLE_ADMIN -> hasAuthority('ROLE_ADMIN')
         // hasRole('ADMIN')
         http.authorizeHttpRequests(c -> {
-            c.requestMatchers("/myPage/**", "/board/view/**", "/board/write/**").authenticated() // 회원 전용 -> 로그인 페이지로
+            c/*.requestMatchers("/myPage/**", "/board/view/**", "/board/write/**").authenticated() // 회원 전용 -> 로그인 페이지로
                     .requestMatchers("/admin/**").hasAnyAuthority("ADMIN") //관리자 -> 401 에러
+                    */
                     .anyRequest().permitAll(); // 그외 모든 페이지는 모두 접근 가능
 
         });
 
         //권한 없는 페이지 요청하면 예외처리 해주는 부분인듯?
+        //관리자 페이지 무조건 401 뜨게 하는 장본인 인듯 이따 확인 필요
         http.exceptionHandling(c -> {
             c.authenticationEntryPoint((req, res, e) -> {
                 String URL = req.getRequestURI();

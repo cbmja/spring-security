@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -28,28 +31,50 @@ public class JoinService {
             return;
         }
 */
+        String dateStr = form.getYyyy()+"-"+form.getMm()+"-"+form.getDd();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date BD = formatter.parse(dateStr);
+            form.setBirthDate(BD);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         // 비밀번호 BCrypt로 해시화
         String hash = encoder.encode(form.getPassword());
 
         //Member member = new ModelMapper().map(form, Member.class);
         Member member = new Member();
         member.setEmail(form.getEmail());
-        member.setName(form.getName());
         member.setPassword(hash);
         member.setUserId(form.getUserId());
+        member.setMemberLoc(form.getMemberLoc());
+        member.setKakaoId(form.getKakaoId());
+        member.setCampusCode(form.getCampusCode());
+        member.setBirthDate(form.getBirthDate());
+        member.setApplyCnt(0);
+        member.setMatchCnt(0);
+        member.setGender(form.getGender());
+
 
         process1(member);
 
-        // 회원 가입시에는 일반 사용자 권한 부여(USER)
+        // id가 admin 이면 관리자 권한 부여
         Authorities authorities = new Authorities();
         authorities.setMember(member);
-        authorities.setAuthority(Authority.USER);
+
+        if(member.getUserId().equals("admin")){
+            authorities.setAuthority(Authority.ADMIN);
+        }else {
+            authorities.setAuthority(Authority.USER);
+        }
+
         authoritiesRepository.saveAndFlush(authorities);
 
 
     }
 
-    public void process1(Member member) {
+    protected void process1(Member member) {
         memberRepository.saveAndFlush(member);
     }
 }

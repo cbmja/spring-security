@@ -22,7 +22,13 @@ public class QMember extends EntityPathBase<Member> {
 
     public final com.campusMatch.CM.util.QBase _super = new com.campusMatch.CM.util.QBase(this);
 
+    public final NumberPath<Integer> applyCnt = createNumber("applyCnt", Integer.class);
+
     public final ListPath<Authorities, QAuthorities> authorities = this.<Authorities, QAuthorities>createList("authorities", Authorities.class, QAuthorities.class, PathInits.DIRECT2);
+
+    public final DateTimePath<java.util.Date> birthDate = createDateTime("birthDate", java.util.Date.class);
+
+    public final StringPath campusCode = createString("campusCode");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
@@ -31,12 +37,18 @@ public class QMember extends EntityPathBase<Member> {
 
     public final BooleanPath enable = createBoolean("enable");
 
+    public final EnumPath<Gender> gender = createEnum("gender", Gender.class);
+
+    public final StringPath kakaoId = createString("kakaoId");
+
     public final BooleanPath lock = createBoolean("lock");
+
+    public final NumberPath<Integer> matchCnt = createNumber("matchCnt", Integer.class);
+
+    public final StringPath memberLoc = createString("memberLoc");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
-
-    public final StringPath name = createString("name");
 
     public final StringPath password = createString("password");
 

@@ -1,0 +1,82 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<section th:fragment="navbarFragment">
+
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">campus_match</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">--</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " th:href="@{/board?type=notice}">공지 사항</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">--</a>
+        </li>
+        <li class="nav-item nav-button-1">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#apply">
+                미팅 신청
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">--</a>
+        </li>
+        <li class="nav-item nav-button-1">
+            <a class="nav-link" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#login">
+               로그인
+            </a>
+            <a class="nav-link header-a" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+        </li>
+        <li class="nav-item nav-button-1">
+            <a class="nav-link" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#join">
+                회원 가입
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">--</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " th:href="@{/board?type=free}">자유 게시판</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " th:href="@{/board?type=question}">건의/문의</a>
+        </li>
+    </ul>
+    <hr>
+
+    <div class="modal fade" id="join" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div th:replace="~{modal/join_form :: join_form}"></div>
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div th:replace="~{modal/login_form :: login_form}"></div>
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="apply" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div th:replace="~{modal/apply_form :: apply_form}"></div>
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+</html>
