@@ -16,6 +16,18 @@
             <textarea class="form-control" id="content" rows="3" style="width: 100%; height: 15em;" name="content" th:field="*{content}" readonly></textarea>
         </div>
     </div>
+    <div style="display: flex; gap: 3px;" th:if="${session.member?.userId == boardData.userId}">
+        <form method="post" th:action="@{/board/edit}">
+            <input type="hidden" name="boardDataNum" th:value="${boardData.boardDataNum}">
+            <input type="hidden" name="type" th:value="${boardData.type}">
+            <input type="submit" class="btn btn-success" value="수정"></input>
+        </form>
+        <form method="post" th:action="@{/board/delete}">
+            <input type="hidden" name="boardDataNum" th:value="${boardData.boardDataNum}">
+            <input type="hidden" name="type" th:value="${boardData.type}">
+            <input type="submit" class="btn btn-danger" value="삭제"></input>
+        </form>
+    </div>
     <hr>
     댓글
     <table class="table table-hover">

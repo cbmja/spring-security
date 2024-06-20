@@ -2,6 +2,7 @@ package com.campusMatch.CM.board.controller;
 
 import com.campusMatch.CM.board.entity.BoardData;
 import com.campusMatch.CM.board.repository.BoardDataRepository;
+import com.campusMatch.CM.board.service.BoardDeleteService;
 import com.campusMatch.CM.board.service.BoardInfoService;
 import com.campusMatch.CM.board.service.BoardSaveService;
 import com.campusMatch.CM.page.Search;
@@ -27,6 +28,7 @@ public class BoardController {
 
     private final BoardSaveService boardSaveService;
     private final BoardInfoService boardInfoService;
+    private final BoardDeleteService boardDeleteService;
 
     private final BoardDataRepository repository;
 
@@ -46,13 +48,7 @@ public class BoardController {
         }
 
         model.addAttribute("page" , page);
-        //search.setTotalPage(pageable.getPageSize());
         model.addAttribute("search" , search);
-
-        List<BoardData> bList = boardInfoService.getPageList(search,pageable).getContent();
-/*        if(bList.isEmpty()){
-            bList = new ArrayList<>();
-        }*/
 
         model.addAttribute("list" , boardInfoService.getPageList(search,pageable).getContent());
 
@@ -74,7 +70,6 @@ public class BoardController {
 
         model.addAttribute("boardData" , boardData);
 
-
         return "board/form";
     }
 
@@ -84,6 +79,19 @@ public class BoardController {
 
         boardSaveService.save(boardData);
 
+        return "redirect:/board?type="+boardData.getType();
+    }
+
+    @PostMapping("/board/edit")
+    public String edit(Model model, @ModelAttribute BoardData boardData){
+
+        return "redirect:/board?type="+boardData.getType();
+    }
+
+    @PostMapping("/board/delete")
+    public String delete(Model model, @ModelAttribute BoardData boardData){
+
+        boardDeleteService.delete(boardData);
 
         return "redirect:/board?type="+boardData.getType();
     }
