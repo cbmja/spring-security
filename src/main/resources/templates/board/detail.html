@@ -17,7 +17,7 @@
         </div>
     </div>
     <div sec:authorize="isAuthenticated()">
-    <div style="display: flex; gap: 3px;" th:if="${session.member?.userId == boardData.userId}">
+    <div style="display: flex; gap: 3px;" th:if="${session.member?.userId == boardData.userId || session.member?.userId == 'admin'}">
         <form method="get" th:action="@{/board/form}">
             <input type="hidden" name="boardDataNum" th:value="${boardData.boardDataNum}">
             <input type="hidden" name="type" th:value="${boardData.type}">
