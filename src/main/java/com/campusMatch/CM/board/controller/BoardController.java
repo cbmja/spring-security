@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,28 +37,33 @@ public class BoardController {
 
         Pageable pageable = null;
 
-        if(search.getSort().equals("ASC")){
-            pageable = PageRequest.of(search.getPage(), 5, Sort.by("createdAt").ascending());
-        }else{
-            pageable = PageRequest.of(search.getPage(), 5, Sort.by("createdAt").descending());
-        }
-
-
         Page page = new Page(search.getPage(), boardInfoService.getTotal(search), 5 ,3);
 
+        if(search.getSort().equals("ASC")){
+            pageable = PageRequest.of(page.getPage(), 5, Sort.by("createdAt").ascending());
+        }else{
+            pageable = PageRequest.of(page.getPage(), 5, Sort.by("createdAt").descending());
+        }
 
         model.addAttribute("page" , page);
-        search.setTotalPage(pageable.getPageSize());
+        //search.setTotalPage(pageable.getPageSize());
         model.addAttribute("search" , search);
 
-
-
         List<BoardData> bList = boardInfoService.getPageList(search,pageable).getContent();
-
+/*        if(bList.isEmpty()){
+            bList = new ArrayList<>();
+        }*/
 
         model.addAttribute("list" , boardInfoService.getPageList(search,pageable).getContent());
 
         return "board/list";
+    }
+
+    @GetMapping("/board/detail")
+    public String detail(Model model , @RequestParam(name = "boardId" , required = false)String boardId){
+
+        model.addAttribute("boardData" , boardInfoService.findById(boardId));
+        return "board/detail";
     }
 
 

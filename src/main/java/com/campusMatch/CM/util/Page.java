@@ -57,6 +57,9 @@ public class Page {
         if(this.page > this.totalEndPage){
             this.page = this.totalEndPage;
         }
+        if(this.page < 0){
+            this.page = 0;
+        }
 
 
         this.startNum = this.page * this.pageElement; //페이지의 첫 게시물 인덱스

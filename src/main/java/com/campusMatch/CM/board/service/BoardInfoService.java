@@ -20,6 +20,11 @@ public class BoardInfoService {
         return boardDataRepository.findAll();
     }
 
+    public BoardData findById(String boardDataNum){
+        return boardDataRepository.findById(Integer.parseInt(boardDataNum)).get();
+    }
+
+
     public Page<BoardData> getPageList(Search search, Pageable pageable) {
 
         if(search.getCate().equals("title")){

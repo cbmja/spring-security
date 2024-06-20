@@ -40,7 +40,7 @@
             <th>추천수</th>
             <th>조회수</th>
         </tr>
-        <tr th:each="boardData : ${list}" th:object="${boardData}">
+        <tr th:each="boardData : ${list}" th:object="${boardData}" th:onclick="|location.href='@{/board/detail(boardId=*{boardDataNum})}'|" class="boardData-row">
             <td th:text="*{title}"></td>
             <td th:text="*{content}"></td>
             <td th:text="*{createdAt}"></td>
@@ -63,7 +63,7 @@
 
                 <div th:each="pageNum : ${page.elements}">
                     <div th:if="${search.page == pageNum}">
-                        <li class="page-item" style="background-color: #74992e;">
+                        <li class="page-item" style="background-color: blue;">
                             <a class="page-link" th:href="@{/board(page=${pageNum}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" th:text="${pageNum}"></a>
                         </li>
                     </div>
@@ -89,9 +89,11 @@
         <div class="col-md-6">
             <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${search.type})}">글쓰기</a>
         </div>
-
-    </div>
 </div>
+
+
+</div>
+
 
 </html>
 

@@ -14,10 +14,10 @@ public class Search {
     private int totalPage ;
 
 
-    public void setPage(int page) {
+/*    public void setPage(int page) {
         if(page < 0){
             page = 0;
         }
         this.page = page;
-    }
+    }*/
 }
