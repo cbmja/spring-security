@@ -34,7 +34,6 @@ public class BoardInfoService {
         } else{
             return boardDataRepository.findByUserIdCriteria(search, pageable);
         }
-
     }
 
     public int getTotal(Search search){

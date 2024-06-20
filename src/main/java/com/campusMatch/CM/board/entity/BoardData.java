@@ -12,7 +12,7 @@ public class BoardData extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int boardDataNum;//번호
+    private int boardDataNum;//번호o
     @Column
     private String userId;//글쓴이
     @Column
@@ -28,6 +28,6 @@ public class BoardData extends Base {
     private int views=0;//조회수
 
     @Transient
-    private String saveType="save"; //저장인지 수정인지
+    private String saveType="save"; //저장인지 수정인지o
 
 }

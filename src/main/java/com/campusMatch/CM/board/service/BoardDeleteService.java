@@ -12,8 +12,8 @@ public class BoardDeleteService {
     private final BoardDataRepository boardDataRepository;
 
 
-    public void delete(BoardData boardData){
-        boardDataRepository.delete(boardData);
+    public void delete(int boardDataNum){
+        boardDataRepository.deleteById(boardDataNum);
     }
 
 }

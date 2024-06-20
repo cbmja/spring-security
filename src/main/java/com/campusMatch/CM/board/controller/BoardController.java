@@ -32,29 +32,26 @@ public class BoardController {
 
     private final BoardDataRepository repository;
 
-    /*@RequestParam(name="type" , defaultValue = "notice") String type*/
+    //메뉴 바로 접근 ok
+    //검색으로 접근 ok
+    //페이지 블럭으로 접근 ok
     //게시판 목록
     @GetMapping("/board")
     public String list(Model model, @ModelAttribute Search search){
 
-        Pageable pageable = null;
-
+        //pageElement - 한 페이지에 보여줄 게시물 수 / pageSize - 페이지 블럭 수
         Page page = new Page(search.getPage(), boardInfoService.getTotal(search), 5 ,3);
-
-        if(search.getSort().equals("ASC")){
-            pageable = PageRequest.of(page.getPage(), 5, Sort.by("createdAt").ascending());
-        }else{
-            pageable = PageRequest.of(page.getPage(), 5, Sort.by("createdAt").descending());
-        }
+        Pageable pageable = getPageable(search.getSort() , page.getPage());
 
         model.addAttribute("page" , page);
         model.addAttribute("search" , search);
-
         model.addAttribute("list" , boardInfoService.getPageList(search,pageable).getContent());
 
         return "board/list";
     }
 
+    //ok
+    //상세 페이지
     @GetMapping("/board/detail")
     public String detail(Model model , @RequestParam(name = "boardId" , required = false)String boardId){
 
@@ -62,8 +59,8 @@ public class BoardController {
         return "board/detail";
     }
 
-
-
+    //새 작성 ok
+    //수정 ok
     //게시판 글 작성 폼
     @GetMapping("/board/form")
     public String form( Model model, @ModelAttribute BoardData boardData){
@@ -78,7 +75,9 @@ public class BoardController {
         return "board/form";
     }
 
+    //ok
     //작성 처리
+    //수정 처리
     @PostMapping("/board")
     public String formProc(Model model, @ModelAttribute BoardData boardData){
 
@@ -86,7 +85,7 @@ public class BoardController {
 
         return "redirect:/board?type="+boardData.getType();
     }
-
+/*
     @PostMapping("/board/edit")
     public String edit(Model model, @ModelAttribute BoardData boardData){
 
@@ -94,13 +93,25 @@ public class BoardController {
 
         return "redirect:/board?type="+boardData.getType();
     }
+*/
 
     @PostMapping("/board/delete")
     public String delete(Model model, @ModelAttribute BoardData boardData){
 
-        boardDeleteService.delete(boardData);
+        boardDeleteService.delete(boardData.getBoardDataNum());
 
         return "redirect:/board?type="+boardData.getType();
+    }
+
+
+    private Pageable getPageable(String sort , int page){
+        Pageable pageable = null;
+        if(sort.equals("ASC")){
+            pageable = PageRequest.of(page, 5, Sort.by("createdAt").ascending());
+        }else{
+            pageable = PageRequest.of(page, 5, Sort.by("createdAt").descending());
+        }
+        return pageable;
     }
 
 
