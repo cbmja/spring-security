@@ -18,6 +18,12 @@
             <input type="submit" class="btn btn-primary" value="작성"/>
         </div>
             <input type="hidden" name="type" th:value="${boardData.type}"/>
+
+            <div th:if="${boardData.saveType == 'edit'}">
+                <input type="hidden" name="boardDataNum" th:value="${boardData.boardDataNum}"/>
+                <input type="hidden" name="saveType" value="edit"/>
+            </div>
+
             <input type="hidden" name="userId" th:value="${session.member?.userId}"/>
     </form>
 </div>

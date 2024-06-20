@@ -68,6 +68,11 @@ public class BoardController {
     @GetMapping("/board/form")
     public String form( Model model, @ModelAttribute BoardData boardData){
 
+        if(boardData.getSaveType().equals("edit")){
+            boardData = boardInfoService.findById(boardData.getBoardDataNum()+"");
+            boardData.setSaveType("edit");
+        }
+
         model.addAttribute("boardData" , boardData);
 
         return "board/form";
@@ -84,6 +89,8 @@ public class BoardController {
 
     @PostMapping("/board/edit")
     public String edit(Model model, @ModelAttribute BoardData boardData){
+
+        model.addAttribute("boardData" , boardData);
 
         return "redirect:/board?type="+boardData.getType();
     }

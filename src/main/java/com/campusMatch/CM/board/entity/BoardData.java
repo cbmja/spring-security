@@ -27,4 +27,7 @@ public class BoardData extends Base {
     @Column
     private int views=0;//조회수
 
+    @Transient
+    private String saveType="save"; //저장인지 수정인지
+
 }

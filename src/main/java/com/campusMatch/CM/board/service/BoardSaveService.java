@@ -10,10 +10,21 @@ import org.springframework.stereotype.Service;
 public class BoardSaveService {
 
     private final BoardDataRepository boardDataRepository;
+    private final BoardInfoService boardInfoService;
 
     public void save(BoardData form){
 
-        boardDataRepository.save(form);
+        if(form.getSaveType().equals("edit")){
+           BoardData boardData = boardInfoService.findById(form.getBoardDataNum()+"");
+           boardData.setTitle(form.getTitle());
+           boardData.setContent(form.getContent());
+           boardDataRepository.save(boardData);
+
+        }else{
+            boardDataRepository.save(form);
+        }
+
+
     }
 
 }
