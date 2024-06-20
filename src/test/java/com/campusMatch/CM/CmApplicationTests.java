@@ -29,7 +29,7 @@ class CmApplicationTests {
 		for(int i=0; i<100; i++){
 			BoardData b = new BoardData();
 			b.setType("question");
-			b.setContent(i+"/");
+			b.setContent(i+"");
 			b.setTitle(i+"");
 
 			boardSaveService.save(b);

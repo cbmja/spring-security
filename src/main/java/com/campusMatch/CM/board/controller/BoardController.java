@@ -34,13 +34,20 @@ public class BoardController {
     @GetMapping("/board")
     public String list(Model model, @ModelAttribute Search search){
 
-        Pageable pageable = PageRequest.of(search.getPage(), 5, Sort.by("createdAt").ascending());
+        Pageable pageable = null;
 
-        Page page = new Page(search.getPage(), boardInfoService.getTotal(search), search);
+        if(search.getSort().equals("ASC")){
+            pageable = PageRequest.of(search.getPage(), 5, Sort.by("createdAt").ascending());
+        }else{
+            pageable = PageRequest.of(search.getPage(), 5, Sort.by("createdAt").descending());
+        }
+
+
+        Page page = new Page(search.getPage(), boardInfoService.getTotal(search), 5 ,3);
+
 
         model.addAttribute("page" , page);
         search.setTotalPage(pageable.getPageSize());
-
         model.addAttribute("search" , search);
 
 

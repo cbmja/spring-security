@@ -13,4 +13,11 @@ public class Search {
     private int startPage = 0;
     private int totalPage ;
 
+
+    public void setPage(int page) {
+        if(page < 0){
+            page = 0;
+        }
+        this.page = page;
+    }
 }
