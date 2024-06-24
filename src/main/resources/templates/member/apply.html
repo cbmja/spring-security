@@ -1,7 +1,10 @@
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div th:fragment="apply_form">
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content" style="margin-left: 15%; margin-right: 15%;">
 
     <form class="row g-3" style="margin: 20px;" method="post" th:action="@{/member/join}">
 
@@ -50,4 +53,6 @@
     </form>
 
 </div>
+
+
 </html>

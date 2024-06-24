@@ -1,56 +1,90 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 
-<div th:fragment="join_form">
+<div layout:fragment="content" style="margin-left: 15%; margin-right: 15%;">
 
-    <form class="row g-3" style="margin: 20px;" method="post" th:action="@{/member/join}">
+    <form class="row g-3" style="margin: 20px;" method="post" th:action="@{/member/join}" th:object="${form}">
         <div class="col-md-6">
             <label for="inputEmail4" class="form-label">이메일</label>
-            <input type="email" class="form-control" id="inputEmail4" name="email">
+            <input type="email" class="form-control" id="inputEmail4" name="email" th:field="*{email}">
+            <div th:if="${errMsg['email'] != null}">
+                <div th:text="${errMsg['email']}" class="errMsg"></div>
+            </div>
+            <div th:if="${errMsg['duplication_email'] != null}">
+                <div th:text="${errMsg['duplication_email']}" class="errMsg"></div>
+            </div>
         </div>
         <div class="col-md-6">
             <label for="memberId" class="form-label">아이디</label>
-            <input type="text" class="form-control" id="memberId" name="userId">
+            <input type="text" class="form-control" id="memberId" name="userId" th:field="*{userId}">
+            <div th:if="${errMsg['id'] != null}">
+                <div th:text="${errMsg['id']}" class="errMsg"></div>
+            </div>
+            <div th:if="${errMsg['duplication_id'] != null}">
+                <div th:text="${errMsg['duplication_id']}" class="errMsg"></div>
+            </div>
         </div>
         <div class="col-md-6">
             <label for="memberPw" class="form-label">비밀번호</label>
-            <input type="password" class="form-control" id="memberPw" name="password">
+            <input type="text" class="form-control" id="memberPw" name="password" th:field="*{password}">
+            <div th:if="${errMsg['password'] != null}">
+                <div th:text="${errMsg['password']}" class="errMsg"></div>
+            </div>
         </div>
         <div class="col-md-6">
             <label for="password2" class="form-label">비밀번호 확인</label>
-            <input type="password" class="form-control" id="password2" name="password2">
+            <input type="text" class="form-control" id="password2" name="password2" th:field="*{password2}">
+            <div th:if="${errMsg['password2'] != null}">
+                <div th:text="${errMsg['password2']}" class="errMsg"></div>
+            </div>
+            <div th:if="${errMsg['pwConfirm'] != null}">
+                <div th:text="${errMsg['pwConfirm']}" class="errMsg"></div>
+            </div>
         </div>
 
         <div class="col-md-6">
             <label for="kakaoId" class="form-label">카톡 아이디</label>
-            <input type="text" class="form-control" id="kakaoId" placeholder="카톡 아이디" name="kakaoId">
+            <input type="text" class="form-control" id="kakaoId" placeholder="카톡 아이디" name="kakaoId" th:field="*{kakaoId}">
+            <div th:if="${errMsg['kakao'] != null}">
+                <div th:text="${errMsg['kakao']}" class="errMsg"></div>
+            </div>
         </div>
         <div class="col-md-6">
             <label for="campusCode" class="form-label">학교</label>
-            <select id="campusCode" class="form-select" name="campusCode">
+            <select id="campusCode" class="form-select" name="campusCode" th:field="*{campusCode}" >
                 <option value="su">서울대</option>
                 <option value="ko">고려대</option>
                 <option value="han">한체대</option>
             </select>
+            <div th:if="${errMsg['campus'] != null}">
+                <div th:text="${errMsg['campus']}" class="errMsg"></div>
+            </div>
         </div>
         <div class="col-md-6">
             <label for="memberLoc" class="form-label">거주지</label>
-            <select id="memberLoc" class="form-select" name="memberLoc">
+            <select id="memberLoc" class="form-select" name="memberLoc" th:field="*{memberLoc}">
                 <option value="강남구">강남구</option>
                 <option value="노원구">노원구</option>
                 <option value="중랑구">중랑구</option>
             </select>
+            <div th:if="${errMsg['location'] != null}">
+                <div th:text="${errMsg['location']}" class="errMsg"></div>
+            </div>
         </div>
         <div class="col-md-6">
             <label for="gender" class="form-label">성별</label>
-            <select id="gender" class="form-select" name="gender">
+            <select id="gender" class="form-select" name="gender" th:field="*{gender}">
                 <option value="M">남성</option>
                 <option value="F">여성</option>
             </select>
+            <div th:if="${errMsg['gender'] != null}">
+                <div th:text="${errMsg['gender']}" class="errMsg"></div>
+            </div>
         </div>
         <div class="col-md-4">
             <label for="yyyy" class="form-label">생년월일</label>
-            <select id="yyyy" class="form-select" name="yyyy">
+            <select id="yyyy" class="form-select" name="yyyy" th:field="*{yyyy}">
                 <option value="1990">1990</option>
                 <option value="1991">1991</option>
                 <option value="1992">1992</option>
@@ -71,7 +105,7 @@
         </div>
         <div class="col-md-4">
             <label for="mm" class="form-label">mm</label>
-            <select id="mm" class="form-select" name="mm">
+            <select id="mm" class="form-select" name="mm" th:field="*{mm}">
                 <option value="01">1</option>
                 <option value="02">2</option>
                 <option value="03">3</option>
@@ -88,7 +122,7 @@
         </div>
         <div class="col-md-4">
             <label for="dd" class="form-label">dd</label>
-            <select id="dd" class="form-select" name="dd">
+            <select id="dd" class="form-select" name="dd" th:field="*{dd}">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -121,6 +155,9 @@
                 <option value="30">30</option>
                 <option value="31">31</option>
             </select>
+            <div th:if="${errMsg['birth'] != null}">
+                <div th:text="${errMsg['birth']}" class="errMsg"></div>
+            </div>
         </div>
         <div class="col-12">
             <div class="form-check">
@@ -128,6 +165,9 @@
                 <label class="form-check-label" for="agree">
                     동의
                 </label>
+                <div th:if="${errMsg['agree'] != null}">
+                    <div th:text="${errMsg['agree']}" class="errMsg"></div>
+                </div>
             </div>
         </div>
         <div class="col-12">
@@ -136,4 +176,8 @@
     </form>
 
 </div>
+
+
 </html>
+
+

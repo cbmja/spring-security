@@ -6,3 +6,7 @@
 .nav-button-1:hover{
     cursor: pointer;
 }
+
+.errMsg{
+    color: red;
+}
