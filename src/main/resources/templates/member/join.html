@@ -160,10 +160,10 @@
             </div>
         </div>
         <div class="col-12">
+            <a class="nav-link custom-button" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#agree_"><!---->
+                약관
+            </a>
             <div class="form-check">
-                <a class="nav-link" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#login"><!---->
-                    약관
-                </a>
                 <input type="radio" class="form-check-input" id="agree" name="agree">
                 <label class="form-check-label" for="agree">
                     동의
@@ -177,6 +177,18 @@
             <button type="submit" class="btn btn-primary">회원 가입</button>
         </div>
     </form>
+
+
+    <div class="modal fade" id="agree_" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div th:replace="~{member/agree_modal :: agree}"></div>
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
