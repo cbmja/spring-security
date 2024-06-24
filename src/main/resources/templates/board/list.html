@@ -90,7 +90,7 @@
             </li>
         </ul>
 
-        <div class="col-md-6">
+        <div class="col-md-6" th:if="${search.type != 'notice'}">
             <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${search.type})}">글쓰기</a>
         </div>
     </div>
