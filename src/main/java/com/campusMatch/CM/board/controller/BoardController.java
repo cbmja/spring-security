@@ -6,9 +6,7 @@ import com.campusMatch.CM.board.service.BoardDeleteService;
 import com.campusMatch.CM.board.service.BoardInfoService;
 import com.campusMatch.CM.board.service.BoardSaveService;
 import com.campusMatch.CM.page.Search;
-import com.campusMatch.CM.user.entity.Member;
 import com.campusMatch.CM.util.Page;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
 //@RequestMapping("/board")
@@ -40,8 +37,8 @@ public class BoardController {
     public String list(Model model, @ModelAttribute Search search){
 
         //pageElement - 한 페이지에 보여줄 게시물 수 / pageSize - 페이지 블럭 수
-        Page page = new Page(search.getPage(), boardInfoService.getTotal(search), 5 ,3);
-        Pageable pageable = getPageable(search.getSort() , page.getPage());
+        Page page = new Page(search.getPage(), boardInfoService.getTotal(search), 10 ,3);
+        Pageable pageable = getPageable(search.getSort() , page.getPage() , page.getPageElement());
 
         model.addAttribute("page" , page);
         model.addAttribute("search" , search);
@@ -104,7 +101,7 @@ public class BoardController {
     }
 
 
-    private Pageable getPageable(String sort , int page){
+    private Pageable getPageable(String sort , int page , int pageElement){
         Pageable pageable = null;
         if(sort.equals("ASC")){
             pageable = PageRequest.of(page, 5, Sort.by("createdAt").ascending());

@@ -13,6 +13,8 @@ public class Search {
     private int startPage = 0;
     private int totalPage ;
 
+    private String gender;
+
 
 /*    public void setPage(int page) {
         if(page < 0){

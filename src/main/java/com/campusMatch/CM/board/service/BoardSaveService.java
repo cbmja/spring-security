@@ -18,10 +18,10 @@ public class BoardSaveService {
            BoardData boardData = boardInfoService.findById(form.getBoardDataNum()+"");
            boardData.setTitle(form.getTitle());
            boardData.setContent(form.getContent());
-           boardDataRepository.save(boardData);
+           boardDataRepository.saveAndFlush(boardData);
 
         }else{
-            boardDataRepository.save(form);
+            boardDataRepository.saveAndFlush(form);
         }
 
 
