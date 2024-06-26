@@ -92,8 +92,13 @@
             </li>
         </ul>
 
-        <div class="col-md-6" th:if="${search.type != 'notice'}">
+        <div class="col-md-6" th:if="${search.type != 'notice'}" sec:authorize="isAuthenticated()">
             <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${search.type})}">글쓰기</a>
+        </div>
+        <div class="col-md-6" th:if="${search.type == 'notice'}" sec:authorize="isAuthenticated()">
+            <div th:if="${session.member?.userId == 'admin'}">
+                <a type="submit" class="btn btn-primary" th:href="@{/board/form(type=${search.type})}">글쓰기</a>
+            </div>
         </div>
     </div>
     <!--EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE 페이지 블럭 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE-->

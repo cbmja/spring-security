@@ -7,10 +7,12 @@ import com.campusMatch.CM.board.service.BoardInfoService;
 import com.campusMatch.CM.board.service.BoardSaveService;
 import com.campusMatch.CM.page.Search;
 import com.campusMatch.CM.util.Page;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,7 @@ public class BoardController {
     private final BoardDeleteService boardDeleteService;
 
     private final BoardDataRepository repository;
+    private final HttpServletRequest request;
 
     //메뉴 바로 접근 ok
     //검색으로 접근 ok
@@ -59,8 +62,9 @@ public class BoardController {
     //새 작성 ok
     //수정 ok
     //게시판 글 작성 폼
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/board/form")
-    public String form( Model model, @ModelAttribute BoardData boardData){
+    public String form( Model model, @ModelAttribute BoardData boardData ){
 
         if(boardData.getSaveType().equals("edit")){
             boardData = boardInfoService.findById(boardData.getBoardDataNum());
@@ -69,18 +73,39 @@ public class BoardController {
 
         model.addAttribute("boardData" , boardData);
 
+        //model.addAttribute("titleErrMsg" , "");
+        //model.addAttribute("contentErrMsg" , "");
+
         return "board/form";
     }
 
     //ok
     //작성 처리
     //수정 처리
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/board")
     public String formProc(Model model, @ModelAttribute BoardData boardData){
 
-        boardSaveService.save(boardData);
+        if(boardData.getTitle().isBlank() && boardData.getContent().isBlank()){
+            model.addAttribute("contentErrMsg" , "내용을 입력 하세요");
+            model.addAttribute("titleErrMsg" , "제목을 입력 하세요");
+            model.addAttribute("boardData" , boardData);
+            return "board/form";
+        }else if(boardData.getContent().isBlank()){
+            model.addAttribute("contentErrMsg" , "내용을 입력 하세요");
+            model.addAttribute("boardData" , boardData);
+            return "board/form";
+        }else if(boardData.getTitle().isBlank()){
+            model.addAttribute("titleErrMsg" , "제목을 입력 하세요");
+            model.addAttribute("boardData" , boardData);
+            return "board/form";
+        }else{
+            boardSaveService.save(boardData);
+            return "redirect:/board?type="+boardData.getType();
+        }
 
-        return "redirect:/board?type="+boardData.getType();
+
+
     }
 /*
     @PostMapping("/board/edit")
@@ -92,6 +117,7 @@ public class BoardController {
     }
 */
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/board/delete")
     public String delete(Model model, @ModelAttribute BoardData boardData){
 
