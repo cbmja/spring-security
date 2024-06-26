@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <section th:fragment="navbarFragment">
 
-    <ul class="nav">
+    <ul class="nav" style="background-color: #e3f2fd; height: 70px;">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">campus_match</a><!---->
         </li>
@@ -20,7 +20,7 @@
             <a class="nav-link header-a" sec:authorize="isAnonymous()" th:href="@{/member/login}">
                 로그인
             </a>
-            <a class="nav-link header-a" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+            <a class="nav-link header-a errMsg" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
         </li>
         <li class="nav-item nav-button-1">
             <a class="nav-link header-a" sec:authorize="isAnonymous()" th:href="@{/member/join}">
@@ -39,8 +39,12 @@
         <li class="nav-item">
             <a class="nav-link " th:href="@{/board?type=question}">건의/문의</a>
         </li>
+        <li >
+            <div sec:authorize="isAuthenticated()">
+                [[${session.member?.userId}]]님 환영합니다.
+            </div>
+        </li>
     </ul>
     <hr>
-
 </section>
 </html>

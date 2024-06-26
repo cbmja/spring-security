@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +39,7 @@ public class Member extends Base {
     private Gender gender; //성별
 
     @Column(nullable=false)
+    @DateTimeFormat(pattern = "YYYY-MM-dd")
     private Date birthDate; //생년월일
 
     @Column(nullable=false)

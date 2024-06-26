@@ -36,6 +36,8 @@ public class Apply extends Base {
 
     private String gender; //성별
 
+    private String birthDate;
+
 
     @Transient
     private MultipartFile photo1;

@@ -30,3 +30,10 @@
     border-color: #0056b3;
 }
 /*약관 버튼*/
+
+
+
+/* 인덱스 페이지에 미팅 프로필 */
+.meeting-profile:hover{
+    cursor: pointer;
+}

@@ -21,6 +21,8 @@ public class QApply extends EntityPathBase<Apply> {
 
     public final com.campusMatch.CM.util.QBase _super = new com.campusMatch.CM.util.QBase(this);
 
+    public final StringPath birthDate = createString("birthDate");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 

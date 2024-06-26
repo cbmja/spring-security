@@ -45,4 +45,15 @@ public class MeetingController {
         return "redirect:/";
     }
 
+    @GetMapping("/profile")
+    public String profile(Model model){
+
+
+
+        return "meeting/profile";
+    }
+
+
+
+
 }

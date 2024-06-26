@@ -4,34 +4,33 @@
 
 <div layout:fragment="content">
 
-    index page
-    <div sec:authorize="isAnonymous()">
-        로그인 하세요.
-    </div>
-    <div sec:authorize="isAuthenticated()">
-        [[${session.member?.userId}]]님 환영합니다.
-    </div>
 
-    <div>
-        <form th:action="@{/}">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="M" th:field="${search.gender}">
-                <label class="form-check-label" for="inlineRadio1">남자</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="F" th:field="${search.gender}">
-                <label class="form-check-label" for="inlineRadio2">여자</label>
-            </div>
-            <input type="submit" name="설정">
-        </form>
-    </div>
+
+
 
     <div class="container">
+        <div>
+            <form th:action="@{/}" style="margin-bottom: 10px; margin-left: 5%;">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="M" th:field="${search.gender}">
+                    <label class="form-check-label" for="inlineRadio1">남자만 보기</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="F" th:field="${search.gender}">
+                    <label class="form-check-label" for="inlineRadio2">여자만 보기</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="ALL" th:field="${search.gender}">
+                    <label class="form-check-label" for="inlineRadio2">ALL</label>
+                </div>
+                <input class="btn btn-primary" type="submit" value="설정">
+            </form>
+        </div>
         <div class="row">
 
         <!-- 8개씩만 나오게 해서 2줄로 -->
-                <div th:each="apply : ${list}" th:object="${apply}" class="col-3" th:onclick="|location.href='@{/board}'|">
-                    <div class="card" style="width: 100%; margin-bottom: 5%; margin-left: 5%;">
+                <div th:each="apply : ${list}" th:object="${apply}" class="col-3" >
+                    <div class="card meeting-profile" style="width: 100%; margin-bottom: 5%; margin-left: 5%;" th:onclick="|location.href='@{/meeting/profile}'|">
                         <img src="..." class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -42,6 +41,9 @@
                             </p>
                             <p class="card-text">
                                 희망 지역 : [[*{loc}]]
+                            </p>
+                            <p class="card-text">
+                                나이 : [[*{birthDate}]]
                             </p>
                         </div>
                     </div>
@@ -55,12 +57,12 @@
     <div class="col-md-6" aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item">
-                <a class="page-link" th:href="@{/(page=${search.startPage}, gender=${search.gender})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/(page=${page.front}, gender=${search.gender})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <li class="page-item">
-                <a class="page-link" th:href="@{/(page=${search.page-1}, gender=${search.gender})}"><</a>
+                <a class="page-link" th:href="@{/(page=${page.page-1}, gender=${search.gender})}"><</a>
             </li>
 
             <div th:each="pageNum : ${page.elements}">
@@ -78,7 +80,7 @@
 
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/(page=${search.page+1}, gender=${search.gender})}">></a>
+                <a class="page-link" th:href="@{/(page=${page.page+1}, gender=${search.gender})}">></a>
             </li>
             <li class="page-item">
                 <a class="page-link" th:href="@{/(page=${page.totalEndPage}, gender=${search.gender})}" aria-label="Next">
