@@ -35,6 +35,8 @@ public class Page {
     private int prev_;
     private int next_;
 
+    private int front = 0;
+
     /**
      *
      * @param page 현재 페이지

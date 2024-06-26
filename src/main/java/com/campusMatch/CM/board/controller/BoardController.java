@@ -50,7 +50,7 @@ public class BoardController {
     //ok
     //상세 페이지
     @GetMapping("/board/detail")
-    public String detail(Model model , @RequestParam(name = "boardId" , required = false)String boardId){
+    public String detail(Model model , @RequestParam(name = "boardId" , required = false)int boardId){
 
         model.addAttribute("boardData" , boardInfoService.findById(boardId));
         return "board/detail";
@@ -63,7 +63,7 @@ public class BoardController {
     public String form( Model model, @ModelAttribute BoardData boardData){
 
         if(boardData.getSaveType().equals("edit")){
-            boardData = boardInfoService.findById(boardData.getBoardDataNum()+"");
+            boardData = boardInfoService.findById(boardData.getBoardDataNum());
             boardData.setSaveType("edit");
         }
 

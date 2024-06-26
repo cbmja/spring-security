@@ -15,7 +15,7 @@ public class BoardSaveService {
     public void save(BoardData form){
 
         if(form.getSaveType().equals("edit")){
-           BoardData boardData = boardInfoService.findById(form.getBoardDataNum()+"");
+           BoardData boardData = boardInfoService.findById(form.getBoardDataNum());
            boardData.setTitle(form.getTitle());
            boardData.setContent(form.getContent());
            boardDataRepository.saveAndFlush(boardData);

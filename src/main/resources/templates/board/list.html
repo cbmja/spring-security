@@ -60,12 +60,12 @@
     <div class="col-md-6" aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item">
-                <a class="page-link" th:href="@{/board(page=${search.startPage}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/board(page=${page.front}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <li class="page-item">
-                <a class="page-link" th:href="@{/board(page=${search.page-1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}"><</a>
+                <a class="page-link" th:href="@{/board(page=${page.page-1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}"><</a>
             </li>
 
                 <div th:each="pageNum : ${page.elements}">
@@ -83,7 +83,7 @@
 
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/board(page=${search.page+1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">></a>
+                <a class="page-link" th:href="@{/board(page=${page.page+1}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}">></a>
             </li>
             <li class="page-item">
                 <a class="page-link" th:href="@{/board(page=${page.totalEndPage}, search=${search.search}, sort=${search.sort}, cate=${search.cate}, type=${search.type})}" aria-label="Next">

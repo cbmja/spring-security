@@ -20,8 +20,8 @@ public class BoardInfoService {
         return boardDataRepository.findAll();
     }
 
-    public BoardData findById(String boardDataNum){
-        return boardDataRepository.findById(Integer.parseInt(boardDataNum)).get();
+    public BoardData findById(int boardDataNum){
+        return boardDataRepository.findById(boardDataNum).get();
     }
 
 
