@@ -19,8 +19,13 @@ public interface ApplyRepository extends JpaRepository<Apply , Integer> {
     @Query("SELECT a FROM Apply a WHERE a.gender = :#{#search.gender}")
     Page<Apply> findByGenderCriteria(@Param("search") Search search, Pageable pageable);
 
+    @Query("SELECT a FROM Apply a")
+    Page<Apply> findByALLCriteria(Pageable pageable);
 
     @Query("SELECT count(*) FROM Apply a WHERE a.gender = :#{#search.gender}")
-    int totalElement(@Param("search")Search search);
+    int totalElementGender(@Param("search")Search search);
 
+
+    @Query("SELECT count(*) FROM Apply")
+    int totalElement();
 }

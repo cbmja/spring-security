@@ -38,7 +38,7 @@ public class MeetingController {
     }
 
     @PostMapping("/apply")
-    public String applyProc(Model model , @ModelAttribute Apply form ){
+    public String applyProc(Model model , @ModelAttribute Apply form){
 
         applySaveService.save(form);
 

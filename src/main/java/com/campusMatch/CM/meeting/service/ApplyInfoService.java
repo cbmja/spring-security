@@ -18,14 +18,23 @@ public class ApplyInfoService {
 
 
     public Page<Apply> getPageList(Search search , Pageable pageable){
+        if(search.getGender().equals("ALL")){
+            return applyRepository.findByALLCriteria(pageable);
+        }else{
+            return applyRepository.findByGenderCriteria(search, pageable);
+        }
 
-        return applyRepository.findByGenderCriteria(search, pageable);
+
 
 
     }
 
     public int getTotal(Search search){
-        return applyRepository.totalElement(search);
+        if(search.getGender().equals("ALL")){
+            return applyRepository.totalElement();
+        }else {
+            return applyRepository.totalElementGender(search);
+        }
     }
 
 

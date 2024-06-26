@@ -25,12 +25,15 @@ public class _MainController {
     @GetMapping("/")
     public String main(Model model , Search search){
 
-
-        if(session.getAttribute("member") != null && ((Member)session.getAttribute("member")).getGender().equals(Gender.M)){
-            search.setGender("F");
-        }else{
-            search.setGender("M");
+/*
+        if(session.getAttribute("member") != null){
+            if(((Member)session.getAttribute("member")).getGender().equals(Gender.M)){
+                search.setGender("F");
+            }else{
+                search.setGender("M");
+            }
         }
+*/
 
         //pageElement - 한 페이지에 보여줄 게시물 수 / pageSize - 페이지 블럭 수
         Page page = new Page(search.getPage(), applyInfoService.getTotal(search), 8 ,3);
@@ -39,8 +42,6 @@ public class _MainController {
         model.addAttribute("page" , page);
         model.addAttribute("search" , search);
         model.addAttribute("list" , applyInfoService.getPageList(search,pageable).getContent());
-
-
 
         return "index";
     }

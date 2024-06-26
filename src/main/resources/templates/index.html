@@ -12,12 +12,25 @@
         [[${session.member?.userId}]]님 환영합니다.
     </div>
 
+    <div>
+        <form th:action="@{/}">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="M" th:field="${search.gender}">
+                <label class="form-check-label" for="inlineRadio1">남자</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="F" th:field="${search.gender}">
+                <label class="form-check-label" for="inlineRadio2">여자</label>
+            </div>
+            <input type="submit" name="설정">
+        </form>
+    </div>
+
     <div class="container">
         <div class="row">
 
         <!-- 8개씩만 나오게 해서 2줄로 -->
-
-                <div th:each="apply : ${list}" th:object="${apply}" class="col-3" >
+                <div th:each="apply : ${list}" th:object="${apply}" class="col-3" th:onclick="|location.href='@{/board}'|">
                     <div class="card" style="width: 100%; margin-bottom: 5%; margin-left: 5%;">
                         <img src="..." class="card-img-top" alt="...">
                         <div class="card-body">
@@ -34,12 +47,47 @@
                     </div>
                 </div>
 
-
         </div>
     </div>
 
 
-[[${list}]]
+    <!--SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS 페이지 블럭 SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS-->
+    <div class="col-md-6" aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/(page=${search.startPage}, gender=${search.gender})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/(page=${search.page-1}, gender=${search.gender})}"><</a>
+            </li>
+
+            <div th:each="pageNum : ${page.elements}">
+                <div th:if="${search.page == pageNum}">
+                    <li class="page-item" style="background-color: blue;">
+                        <a class="page-link" th:href="@{/(page=${pageNum}, gender=${search.gender})}" th:text="${pageNum}"></a>
+                    </li>
+                </div>
+                <div>
+                    <li class="page-item" th:if="${search.page != pageNum}">
+                        <a class="page-link" th:href="@{/(page=${pageNum}, gender=${search.gender})}" th:text="${pageNum}"></a>
+                    </li>
+                </div>
+            </div>
+
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/(page=${search.page+1}, gender=${search.gender})}">></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/(page=${page.totalEndPage}, gender=${search.gender})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE 페이지 블럭 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE-->
 
 
 </div>
